@@ -48,28 +48,33 @@ class UsersController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new Users;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Users']))
-		{
-			$model->attributes=$_POST['Users'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->users_id));
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+	 
+//  * Creates a new model.
+//  * If creation is successful, the browser will be redirected to the 'view' page.
+//  */
+public function actionCreate()
+{
+    $model=new Users;
+ 
+    // Uncomment the following line if AJAX validation is needed
+    // $this->performAjaxValidation($model);
+ 
+    if(isset($_POST['Users']))
+    {	
+	
+		$model->attributes=$_POST['Users'];
+		print_r($_POST['Users']['users_password']);
+         // $model->password = $model->hashPassword($_POST['Users']['users_password']);
+          if($model->save())
+              $this->redirect(array('view','id'=>$model->users_id));
+          else
+             $model->password = $_POST['User']['password'];
+    }
+ 
+    $this->render('create',array(
+        'model'=>$model,
+    ));
+}
 
 
 
